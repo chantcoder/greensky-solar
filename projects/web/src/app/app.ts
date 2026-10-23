@@ -235,7 +235,7 @@ Please contact me regarding my solar enquiry.
 
     // Replace with GreenSky Solar's WhatsApp business number.
     // Include country code, without + or spaces.
-    const whatsappNumber = '917020484598';
+    const whatsappNumber = '917020784598';
 
     const whatsappUrl =
       `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
@@ -243,7 +243,7 @@ Please contact me regarding my solar enquiry.
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
 
     this.enquiryMessage =
-      'Your enquiry is ready in WhatsApp. Please review it and press Send.';
+      'Your enquiry is ready in WhatsApp. Please review it and press REQUEST A CALLBACK.';
     // alert("Form Submitted Successfully.");
 
 
@@ -299,7 +299,7 @@ Please contact me regarding my solar enquiry.
 
     // Replace with GreenSky Solar's WhatsApp business number.
     // Include country code, without + or spaces.
-    const whatsappNumber = '917020484598';
+    const whatsappNumber = '917020784598';
 
     const whatsappUrl =
       `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
