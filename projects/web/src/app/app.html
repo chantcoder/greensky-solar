@@ -1,0 +1,799 @@
+<header class="site-header">
+  <nav class="navbar container navbar-expand-lg" aria-label="Main navigation">
+    <a class="navbar-brand brand" href="#home" aria-label="Sudarshan Solar home">
+      <span class="brand-mark" aria-hidden="true">✳</span>
+      <span class="brand-copy">
+        <strong>GREENSKY SOLAR</strong>
+        <small><span>MAKE YOUR ENERGY WORK SMARTER</span></small>
+      </span>
+    </a>
+
+    <div class="desktop-nav">
+      <a href="#solutions">Solutions</a>
+      <a href="#approach">Our Approach</a>
+      <a href="#about">About Us</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <a class="header-phone" href="tel:+917020784598" aria-label="Call GreenSky Solar at 7020784598">
+      <span aria-hidden="true">☎ </span>
+      <span>7020784598</span>
+    </a>
+
+    <a class="btn btn-gold header-cta" (click)="focusCustomerForm()">
+      Free Consultation <span aria-hidden="true">↗</span>
+    </a>
+  </nav>
+</header>
+
+<main id="main">
+  <!-- Hero -->
+  <!-- HERO: carousel background + stationary enquiry form -->
+  <section class="solar-hero" id="home">
+    @for (slide of slides; track slide.label; let i = $index) {
+    <div class="solar-hero-slide" [class.active]="activeSlide() === i"
+      [style.background-image]="'url(' + slide.image + ')'" [attr.aria-hidden]="activeSlide() !== i"></div>
+    }
+
+    <div class="solar-hero-overlay"></div>
+
+    <div class="container solar-hero-container">
+      <div class="solar-hero-grid">
+
+        <!-- Left: dynamic carousel content -->
+        <div class="solar-hero-copy">
+          <div class="solar-eyebrow">
+            <span></span>
+            {{ slides[activeSlide()].eyebrow }}
+          </div>
+
+          <h1>
+            {{ slides[activeSlide()].line1 }}
+            <span>{{ slides[activeSlide()].line2 }}</span>
+          </h1>
+
+          <p class="solar-hero-description">
+            {{ slides[activeSlide()].description }}
+          </p>
+
+          <div class="solar-benefits">
+            <div>
+              <span class="benefit-check">✓</span>
+              Solutions tailored to your needs
+            </div>
+            <div>
+              <span class="benefit-check">✓</span>
+              Residential, commercial and industrial
+            </div>
+            <div>
+              <span class="benefit-check">✓</span>
+              Guidance through your solar journey
+            </div>
+          </div>
+
+
+          <!-- Carousel controls -->
+          <div class="solar-carousel-controls">
+            <button type="button" class="solar-arrow" aria-label="Previous slide" (click)="previousSlide()">←</button>
+
+            @for (slide of slides; track slide.label; let i = $index) {
+            <button type="button" class="solar-indicator" [class.active]="activeSlide() === i"
+              [attr.aria-label]="'Show slide ' + (i + 1)" [attr.aria-pressed]="activeSlide() === i"
+              (click)="goToSlide(i)"></button>
+            }
+
+            <button type="button" class="solar-arrow" aria-label="Next slide" (click)="nextSlide()">→</button>
+
+            <span class="solar-slide-number">
+              0{{ activeSlide() + 1 }} / 0{{ slides.length }}
+            </span>
+          </div>
+
+          <a class="btn btn-gold header-cta my-4" href="#calculator">
+            Solar Calculator <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <!-- Right: stationary enquiry form -->
+        <div class="solar-form-card" id="test">
+          <div class="solar-form-heading">
+            <span class="solar-form-kicker">LET'S TALK SOLAR.</span>
+            <h2>Book a Free Solar Consultation.</h2>
+            <p>
+              Explore your solar options and check whether you may qualify
+              for applicable government subsidies.
+            </p>
+          </div>
+
+          <form (submit)="submitEnquiry($event)" ngNativeValidate>
+            <div class="form-field">
+              <label for="customerName">Full Name</label>
+              <input #customerNameInput id="customerName" name="name" class="form-control" autocomplete="off"
+                placeholder="e.g. Your name" required />
+            </div>
+
+            <div class="form-field">
+              <label for="customerPhone">Mobile Number</label>
+              <input id="customerPhone" name="phone" type="tel" class="form-control" autocomplete="off"
+                inputmode="numeric" maxlength="10" minlength="10" pattern="[6-9][0-9]{9}"
+                placeholder="Enter 10-digit mobile number" title="Enter a valid 10-digit mobile number" required />
+            </div>
+
+            <div class="form-field">
+              <label for="customerType">I'm interested in</label>
+              <select id="customerType" name="customerType" class="form-select" required>
+                <option value="">Choose a solar solution</option>
+                <option>Residential Solar</option>
+                <option>Commercial Solar</option>
+                <option>Industrial Solar</option>
+                <option>Solar Maintenance</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="customerCity">City / location</label>
+              <input id="customerCity" name="city" class="form-control" autocomplete="off"
+                placeholder="Where is your project?" required />
+            </div>
+
+            <button class="btn btn-forest btn-lg w-100" type="submit">
+              Request a Callback
+              <span aria-hidden="true">↗</span>
+            </button>
+
+            <p class="form-note" aria-live="polite">
+              {{ enquiryMessage }}
+            </p>
+
+            <p class="privacy-note">
+              Your details are for this enquiry demo only; nothing is sent
+              to a server yet.
+            </p>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="solar-hero-bottom">
+      <div class="container solar-hero-bottom-inner">
+        <span>MAKE YOUR ENERGY WORK SMARTER</span>
+        <span>RESIDENTIAL · COMMERCIAL · INDUSTRIAL</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Keep your existing solutions, about, projects and other sections below. -->
+
+
+  <section class="calculator-section section-space" id="calculator">
+    <div class="container">
+      <div class="calculator-heading text-center">
+        <span class="calculator-eyebrow">YOUR SOLAR POTENTIAL</span>
+        <h2>What could you save with solar?</h2>
+        <p>
+          Share your electricity usage to explore a solar system
+          that may suit your property.
+        </p>
+      </div>
+
+      <div class="calculator-card">
+
+        <!-- STAGE 1: Electricity details -->
+        @if (calculatorStep === 'input') {
+        <form (ngSubmit)="calculateSavings()" #calculatorForm="ngForm">
+
+          <div class="row g-4">
+            <div class="col-md-4">
+              <label for="propertyType" class="form-label">
+                Property type
+              </label>
+              <select id="propertyType" class="form-select" name="propertyType" [(ngModel)]="solarInput.propertyType"
+                required>
+                <option value="H">Residential</option>
+                <option value="C">Commercial</option>
+                <option value="I">Industrial</option>
+                <option value="M">Maintainance</option>
+                <option value="S">Consultation</option>
+              </select>
+            </div>
+
+            <div class="col-md-4">
+              <label for="monthlyBill" class="form-label">
+                Monthly electricity bill (₹)
+              </label>
+              <input id="monthlyBill" class="form-control" type="number" name="monthlyBill"
+                [(ngModel)]="solarInput.monthlyBill" min="500" max="100000000" placeholder="e.g. 5000" required>
+            </div>
+
+            <div class="col-md-4">
+              <label for="tariff" class="form-label">
+                Electricity cost per unit (₹)
+              </label>
+              <input id="tariff" class="form-control" type="number" name="tariff" [(ngModel)]="solarInput.tariff"
+                min="1" max="100" step="0.5" required>
+              <small class="text-muted">
+                Check your electricity bill for the approximate rate.
+              </small>
+            </div>
+          </div>
+
+          <div class="calculator-action text-center">
+            <button type="submit" class="btn btn-calculator" [disabled]="!calculatorForm.valid">
+              Calculate my savings
+              <span aria-hidden="true">→</span>
+            </button>
+            <p>Free estimate · No obligation</p>
+          </div>
+        </form>
+        }
+
+        <!-- STAGE 2: Capture the lead -->
+        @if (calculatorStep === 'lead') {
+        <div class="lead-stage">
+          <span class="calculator-eyebrow">YOUR ESTIMATE IS ALMOST READY</span>
+          <h3>Where should we send your solar consultation?</h3>
+          <p>
+            Share your details to view your estimated system size,
+            generation and potential savings.
+          </p>
+
+          <form #leadForm="ngForm">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="leadName" class="form-label">Full Name</label>
+                <input id="leadName" class="form-control" name="name" [(ngModel)]="lead.name" autocomplete="off"
+                  placeholder="enter full name" minlength="2" maxlength="100" required>
+              </div>
+
+              <div class="col-md-6">
+                <label for="leadPhone" class="form-label">Mobile Number</label>
+                <input id="leadPhone" class="form-control" name="phone" type="tel" [(ngModel)]="lead.phone"
+                  autocomplete="off" inputmode="numeric" maxlength="10" minlength="10" pattern="[6-9][0-9]{9}"
+                  title="Enter a valid 10-digit mobile number" placeholder="Enter 10-digit mobile number" required>
+              </div>
+
+              <div class="col-12">
+                <label for="leadCity" class="form-label">City</label>
+                <input id="leadCity" class="form-control" name="city" [(ngModel)]="lead.city"
+                  autocomplete="off" maxlength="100" placeholder="e.g. Nagpur" required>
+              </div>
+
+              <div class="col-12">
+                <div class="form-check">
+                  <input id="leadConsent" class="form-check-input" type="checkbox" name="consent"
+                    [(ngModel)]="lead.consent" required>
+                  <label class="form-check-label" for="leadConsent">
+                    I agree to be contacted by Greensky Solar about this
+                    enquiry and understand how my details will be used.
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="calculator-action">
+              <button type="submit" class="btn btn-calculator" (click)="revealSavings()" [disabled]="!leadForm.valid">
+                View my solar estimate
+                <span aria-hidden="true">→</span>
+              </button>
+
+              <button type="button" class="btn btn-link" (click)="calculatorStep = 'input'">
+                Back to calculator
+              </button>
+            </div>
+          </form>
+        </div>
+        }
+
+        <!-- STAGE 3: Estimated results -->
+        @if (calculatorStep === 'result') {
+        <div class="solar-results">
+          <span class="calculator-eyebrow">YOUR INITIAL SOLAR ESTIMATE</span>
+          <h3>Here's what solar could look like for you, {{ lead.name }}.</h3>
+
+          <div class="row g-3 mt-3">
+            <div class="col-md-4">
+              <div class="result-tile">
+                <span>Suggested system size</span>
+                <strong>{{ estimatedKw | number:'1.1-1' }} kW</strong>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="result-tile">
+                <span>Estimated monthly generation</span>
+                <strong>{{ monthlyUnits | number:'1.0-0' }} units</strong>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="result-tile result-highlight">
+                <span>Potential monthly bill savings</span>
+                <strong>{{ monthlySavings | currency:'INR':'symbol':'1.0-0' }}</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="annual-savings mt-4">
+            <span>Illustrative annual savings</span>
+            <strong>{{ annualSavings | currency:'INR':'symbol':'1.0-0' }}</strong>
+          </div>
+
+          <p class="estimate-disclaimer mt-3">
+            This is an indicative estimate, not a guaranteed saving or
+            system design. Actual generation and savings depend on sunlight,
+            roof conditions, shading, system losses, electricity tariffs,
+            self-consumption and applicable export rules. Subsidies and
+            installation costs are not included.
+          </p>
+
+          <button type="button" class="btn btn-calculator mt-3" (click)="calculatorStep = 'input'">
+            Recalculate
+          </button>
+        </div>
+        }
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Intro -->
+  <section class="about-section section-space" id="about">
+    <div class="container">
+      <div class="about-grid">
+
+        <!-- Founder photo -->
+        <div class="founder-visual">
+          <img [src]="founderImage" alt="Founder of GreenSky Solar, Mr. Sudarshan Pandey" class="founder-image" />
+
+          <div class="founder-caption">
+            <span>FOUNDER</span>
+            <h3>Mr. Sudarshan Pandey</h3>
+            <p>GreenSky Solar</p>
+          </div>
+        </div>
+
+        <!-- Company story -->
+        <div class="about-content">
+          <div class="eyebrow">
+            <span class="eyebrow-line"></span>
+            ABOUT GREENSKY SOLAR
+          </div>
+
+          <h2>
+            Building a brighter future
+            <span>with smarter solar energy.</span>
+          </h2>
+
+          <p>
+            Founded by Mr. Sudarshan Pandey, GreenSky Solar helps
+            homes, businesses and industries transition to cleaner,
+            smarter energy. With 100+ completed solar installations
+            and over 5 MW of installed capacity, we bring practical
+            experience in site assessment, system design, planning
+            and installation.
+          </p>
+
+          <p>
+            Every project begins with understanding the customer's
+            energy needs and property requirements. Our focus is on
+            thoughtful planning, quality-conscious execution and
+            long-term value from solar energy.
+          </p>
+
+          <a href="#approach" class="text-link">
+            Discover our approach <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Company statistics -->
+      <div class="about-stats">
+        <div class="about-stat">
+          <strong>100+</strong>
+          <span>Solar installations</span>
+        </div>
+
+        <div class="about-stat">
+          <strong>5000 KW+</strong>
+          <span>Installed solar capacity</span>
+        </div>
+
+        <div class="about-stat">
+          <strong>End-to-end</strong>
+          <span>Planning and installation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Solutions -->
+  <section class="solutions-section section-space" id="solutions">
+    <div class="container">
+      <div class="section-topline">
+        <div>
+          <div class="eyebrow">
+            <span class="eyebrow-line"></span>
+            SOLAR SOLUTIONS
+          </div>
+          <h2>One sun. <span>Many possibilities.</span></h2>
+        </div>
+
+        <p class="section-intro">
+          From a family home to a large facility, explore an approach
+          tailored to how you use energy.
+        </p>
+      </div>
+
+      <div class="row g-4 solution-grid">
+        <div class="col-md-4">
+          <article class="solution-card">
+            <div class="solution-image residential-image">
+              <span class="image-index">01 — HOME</span>
+            </div>
+            <div class="solution-body">
+              <div class="solution-heading">
+                <h3>Residential Solar</h3>
+                <span class="round-arrow" aria-hidden="true">↗</span>
+              </div>
+              <p>
+                Explore rooftop solar for your home, with a system planned
+                around your household's electricity needs.
+              </p>
+              <a href="#contact" class="text-link">
+                Explore home solar <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-md-4">
+          <article class="solution-card">
+            <div class="solution-image commercial-image">
+              <span class="image-index">02 — BUSINESS</span>
+            </div>
+            <div class="solution-body">
+              <div class="solution-heading">
+                <h3>Commercial Solar</h3>
+                <span class="round-arrow" aria-hidden="true">↗</span>
+              </div>
+              <p>
+                Make productive use of available roof space at offices,
+                retail properties and commercial buildings.
+              </p>
+              <a href="#contact" class="text-link">
+                Explore business solar <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-md-4">
+          <article class="solution-card">
+            <div class="solution-image industrial-image">
+              <span class="image-index">03 — INDUSTRY</span>
+            </div>
+            <div class="solution-body">
+              <div class="solution-heading">
+                <h3>Industrial Solar</h3>
+                <span class="round-arrow" aria-hidden="true">↗</span>
+              </div>
+              <p>
+                Assess scalable solar options for factories, warehouses
+                and energy-intensive operations.
+              </p>
+              <a href="#contact" class="text-link">
+                Explore industrial solar <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Approach -->
+  <section class="approach-section section-space" id="approach">
+    <div class="container">
+      <div class="approach-grid">
+        <div class="approach-photo">
+          <div class="photo-label">
+            <span class="photo-label-icon">✳</span>
+            <div>
+              <strong>PLANNED WITH PURPOSE</strong>
+              <span>A considered approach to solar</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="approach-content">
+          <div class="eyebrow eyebrow-light">
+            <span class="eyebrow-line"></span>
+            FROM FIRST STEP TO FOLLOW-THROUGH
+          </div>
+
+          <h2>A better solar journey<br />
+            <span>starts with clarity.</span>
+          </h2>
+
+          <p class="approach-description">
+            Understanding the site and the requirements upfront helps
+            you make a more informed decision. Here's a practical way
+            to approach your solar project.
+          </p>
+
+          <div class="process-list">
+            <div class="process-item">
+              <span>01</span>
+              <div>
+                <h3>Understand your needs</h3>
+                <p>Discuss your energy usage, goals and property.</p>
+              </div>
+            </div>
+
+            <div class="process-item">
+              <span>02</span>
+              <div>
+                <h3>Assess the opportunity</h3>
+                <p>Review site suitability and possible system options.</p>
+              </div>
+            </div>
+
+            <div class="process-item">
+              <span>03</span>
+              <div>
+                <h3>Plan the next steps</h3>
+                <p>Understand the proposal, installation and care requirements.</p>
+              </div>
+            </div>
+          </div>
+
+          <a class="btn btn-gold" href="#contact">
+            Start a Conversation <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why choose us -->
+  <section class="difference-section section-space">
+    <div class="container">
+      <div class="difference-heading">
+        <div class="eyebrow">
+          <span class="eyebrow-line"></span>
+          WHAT MATTERS
+        </div>
+        <h2>Built on the things<br />that <span>matter most.</span></h2>
+      </div>
+
+      <div class="difference-grid">
+        <article class="difference-item">
+          <span class="difference-symbol">⌁</span>
+          <h3>Clear communication</h3>
+          <p>Understand your options, project scope and the decisions ahead.</p>
+        </article>
+
+        <article class="difference-item">
+          <span class="difference-symbol">◇</span>
+          <h3>Quality-led thinking</h3>
+          <p>Give due attention to system design, components and workmanship.</p>
+        </article>
+
+        <article class="difference-item">
+          <span class="difference-symbol">↗</span>
+          <h3>Long-term perspective</h3>
+          <p>Consider monitoring, maintenance and ongoing system performance.</p>
+        </article>
+
+        <article class="difference-item">
+          <span class="difference-symbol">◎</span>
+          <h3>A tailored solution</h3>
+          <p>Make choices that reflect your site, usage and project objectives.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enquiry -->
+  <section class="contact-section" id="contact">
+    <div class="container contact-grid">
+
+      <!-- Left: Contact information -->
+      <div class="contact-copy">
+        <div class="eyebrow eyebrow-light">
+          <span class="eyebrow-line"></span>
+          YOUR SOLAR PROJECT STARTS HERE
+        </div>
+
+        <h2>
+          Let's turn your<br />
+          <span>solar plans into action.</span>
+        </h2>
+
+        <div class="contact-note">
+          <span class="contact-note-mark">✳</span>
+          <span>Better decisions start with the right conversation.</span>
+        </div>
+
+        <div class="contact-details">
+
+          <!-- Phone -->
+          <div class="contact-detail">
+            <span class="contact-detail-icon" aria-hidden="true">☎</span>
+            <div>
+              <strong>Call us</strong>
+              <a href="tel:+917020784598">7020784598</a>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="contact-detail">
+            <span class="contact-detail-icon" aria-hidden="true">✉</span>
+            <div>
+              <strong>Email us</strong>
+              <a href="mailto:hellogreenskysolar@gmail.com">
+                hellogreenskysolar@gmail.com
+              </a>
+            </div>
+          </div>
+
+
+
+        </div>
+
+
+
+        <div class="contact-extra-row">
+
+          <!-- Google Map -->
+          <div class="contact-map">
+            <iframe title="GreenSky Solar office location in Nagpur"
+              src="https://www.google.com/maps?q=632P%2BX8%20Nagpur%2C%20Maharashtra&output=embed" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade" allowfullscreen>
+            </iframe>
+
+            <div class="contact-map-caption">
+              <span>GreenSky Solar · Nagpur</span>
+              <a href="https://www.google.com/maps/search/?api=1&query=632P%2BX8%20Nagpur%2C%20Maharashtra"
+                target="_blank" rel="noopener noreferrer">
+                Open map ↗
+              </a>
+            </div>
+          </div>
+
+          <!-- Instagram QR -->
+          <div class="contact-qr">
+            <a href="https://www.instagram.com/greensky_solar_pvt_ltd/" target="_blank" rel="noopener noreferrer"
+              aria-label="Visit GreenSky Solar on Instagram">
+              <img [src]="instaProfileQr" alt="Scan to visit GreenSky Solar on Instagram" width="160" height="160" />
+            </a>
+
+            <div>
+              <strong>Connect with us</strong>
+              <p>Scan to visit our Instagram profile.</p>
+              <a class="contact-qr-link" href="https://www.instagram.com/greensky_solar_pvt_ltd/" target="_blank"
+                rel="noopener noreferrer">
+                Visit Instagram ↗
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+
+      <!-- Right: Existing enquiry form -->
+      <div class="enquiry-card">
+        <div class="form-heading">
+          <span>GET IN TOUCH</span>
+          <h3>Request a consultation</h3>
+          <p>Share your details to get the conversation started.</p>
+        </div>
+
+        <form (submit)="submitEnquiry($event)">
+          <div class="form-field">
+            <label for="customerName">Full name</label>
+            <input id="customerName" name="name" class="form-control" autocomplete="off" placeholder="e.g. Your name"
+              required />
+          </div>
+
+          <div class="form-field">
+            <label for="customerPhone">Phone number</label>
+            <input id="customerPhone" name="phone" type="tel" class="form-control" autocomplete="off" inputmode="tel"
+              placeholder="Enter 10-digit mobile number" title="Enter a valid 10-digit mobile number" maxlength="10"
+              minlength="10" pattern="[6-9][0-9]{9}" required />
+          </div>
+
+          <div class="form-field">
+            <label for="customerType">I'm interested in</label>
+            <select id="customerType" name="customerType" class="form-select" required>
+              <option value="">Choose a solar solution</option>
+              <option>Residential Solar</option>
+              <option>Commercial Solar</option>
+              <option>Industrial Solar</option>
+              <option>Solar Maintenance</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="customerCity">City / location</label>
+            <input id="customerCity" name="city" class="form-control" autocomplete="off"
+              placeholder="Where is your project?" required />
+          </div>
+
+          <button class="btn btn-forest btn-lg w-100" type="submit">
+            Request a Callback <span aria-hidden="true">↗</span>
+          </button>
+
+          <p class="form-note" aria-live="polite">
+            {{ enquiryMessage }}
+          </p>
+
+          <p class="privacy-note">
+            Your details are for this enquiry demo only; nothing is sent
+            to a server yet.
+          </p>
+        </form>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-main">
+      <a class="navbar-brand brand brand-footer" href="#home">
+        <span class="brand-mark" aria-hidden="true">✳</span>
+        <span class="brand-copy">
+          <strong>GREENSKY SOLAR</strong>
+          <small>ENERGY FOR TOMORROW</small>
+        </span>
+      </a>
+
+      <p>Thoughtful solar solutions for a brighter tomorrow.</p>
+
+    </div>
+
+    <div class="footer-contact">
+      <a href="tel:+917020784598">☎ 7020784598</a>
+      <a href="mailto:hellogreenskysolar@gmail.com">
+        ✉ hellogreenskysolar@gmail.com
+      </a>
+      <a href="https://www.google.com/maps/search/?api=1&query=632P%2BX8%20Nagpur%2C%20Maharashtra" target="_blank"
+        rel="noopener noreferrer">
+        ⌖ Visit our office
+      </a>
+      <a href="https://www.instagram.com/greensky_solar_pvt_ltd/" target="_blank" rel="noopener noreferrer">
+        ◎ Instagram
+      </a>
+    </div>
+
+
+    <div class="footer-bottom">
+      <span>© {{ currentYear }} Greensky Solar. All rights reserved.</span>
+      <span>Clean energy. Considered choices.</span>
+    </div>
+  </div>
+</footer>
+
+<a class="footer-top" href="#home">↑</a>
+
+
+<!-- Floating WhatsApp button -->
+<a class="whatsapp-float"
+  href="https://wa.me/917020784598?text=Hello%20GreenSky%20Solar%2C%20I%27m%20interested%20in%20your%20solar%20solutions."
+  target="_blank" rel="noopener noreferrer" aria-label="Chat with GreenSky Solar on WhatsApp"
+  title="Chat with us on WhatsApp">
+
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true">
+    <path fill="currentColor"
+      d="M16 .8A15.1 15.1 0 0 0 3.05 23.66L1 31l7.53-1.98A15.1 15.1 0 1 0 16 .8Zm0 27.45c-2.3 0-4.56-.62-6.52-1.8l-.47-.28-4.47 1.17 1.2-4.35-.3-.48A12.35 12.35 0 1 1 16 28.25Zm6.78-9.25c-.37-.18-2.18-1.08-2.52-1.2-.34-.13-.58-.18-.83.18-.24.37-.95 1.2-1.16 1.45-.21.24-.43.27-.8.09-.36-.18-1.54-.57-2.93-1.81-1.08-.96-1.81-2.15-2.02-2.52-.22-.37-.03-.57.16-.75.16-.16.37-.43.55-.64.18-.21.24-.37.37-.61.12-.25.06-.46-.03-.64-.09-.18-.83-2-1.13-2.74-.3-.72-.6-.62-.83-.63h-.71c-.24 0-.64.09-.98.46-.34.37-1.28 1.25-1.28 3.06s1.31 3.55 1.5 3.79c.18.25 2.58 3.94 6.25 5.52.87.37 1.55.59 2.08.75.87.28 1.66.24 2.29.15.7-.1 2.18-.89 2.49-1.75.31-.86.31-1.6.21-1.75-.09-.15-.34-.24-.7-.43Z" />
+  </svg>
+</a>
