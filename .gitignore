@@ -63,3 +63,11 @@ Thumbs.db
 # Logs and coverage
 npm-debug.log*
 coverage/
+
+**/node_modules/
+**/dist/
+.angular/
+**/.angular/
+.env
+.env.*
+!.env.example
