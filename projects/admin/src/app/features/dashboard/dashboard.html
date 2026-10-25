@@ -1,0 +1,35 @@
+
+<div class="dashboard-page">
+  <div class="page-heading">
+    <div>
+      <span class="page-eyebrow">OVERVIEW</span>
+      <h2>Welcome back, Administrator</h2>
+      <p>Here's an overview of your solar business workspace.</p>
+    </div>
+
+    <span class="date-label">Dashboard overview</span>
+  </div>
+
+  <div class="stats-grid">
+    @for (stat of stats; track stat.label) {
+      <article class="stat-card">
+        <span class="stat-label">{{ stat.label }}</span>
+        <strong>{{ stat.value }}</strong>
+        <span class="stat-note">{{ stat.note }}</span>
+      </article>
+    }
+  </div>
+
+  <section class="activity-card">
+    <div>
+      <h3>Recent activity</h3>
+      <p>Your latest workspace updates will appear here.</p>
+    </div>
+
+    <div class="empty-state">
+      <span class="empty-icon">▤</span>
+      <strong>No recent activity yet</strong>
+      <p>Activity will appear here when connected features begin recording updates.</p>
+    </div>
+  </section>
+</div>

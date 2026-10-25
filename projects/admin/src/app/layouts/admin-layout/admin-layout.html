@@ -1,1 +1,110 @@
-<p>admin-layout works!</p>
+<div class="admin-shell">
+
+    <!-- Mobile overlay -->
+    @if (sidebarOpen) {
+    <button class="sidebar-overlay" type="button" aria-label="Close navigation" (click)="closeSidebar()">
+    </button>
+    }
+
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" [class.sidebar-open]="sidebarOpen">
+
+        <a class="admin-brand" routerLink="/admin/dashboard" (click)="closeSidebar()">
+            <span class="brand-icon">☀</span>
+            <span>
+                <strong>GreenSky Solar</strong>
+                <small>ADMIN PORTAL</small>
+            </span>
+        </a>
+
+        <div class="sidebar-section-label">WORKSPACE</div>
+
+        <nav class="sidebar-nav">
+            <a routerLink="/admin/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+                (click)="closeSidebar()">
+                <span class="nav-icon">▦</span>
+                Dashboard
+            </a>
+
+            <a routerLink="/admin/enquiries" routerLinkActive="active" (click)="closeSidebar()">
+                <span class="nav-icon">✉</span>
+                Enquiries
+            </a>
+
+            <a routerLink="/admin/services" routerLinkActive="active" (click)="closeSidebar()">
+                <span class="nav-icon">☀</span>
+                Solar Services
+            </a>
+
+            <a routerLink="/admin/projects" routerLinkActive="active" (click)="closeSidebar()">
+                <span class="nav-icon">▤</span>
+                Projects
+            </a>
+
+            <a routerLink="/admin/content" routerLinkActive="active" (click)="closeSidebar()">
+                <span class="nav-icon">▧</span>
+                Website Content
+            </a>
+        </nav>
+
+        <div class="sidebar-section-label">PREFERENCES</div>
+
+        <nav class="sidebar-nav">
+            <a routerLink="/admin/settings" routerLinkActive="active" (click)="closeSidebar()">
+                <span class="nav-icon">⚙</span>
+                Settings
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-status">
+                <span class="status-dot"></span>
+                <span>
+                    <strong>Admin workspace</strong>
+                    <small>GreenSky Solar</small>
+                </span>
+            </div>
+
+            <a routerLink="/auth/login" class="logout-link" (click)="closeSidebar()">
+                <span class="nav-icon">↪</span>
+                Sign out
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main area -->
+    <div class="admin-main">
+
+        <header class="admin-topbar">
+            <div class="topbar-left">
+                <button type="button" class="menu-button" aria-label="Toggle navigation"
+                    [attr.aria-expanded]="sidebarOpen" (click)="sidebarOpen = !sidebarOpen">
+                    ☰
+                </button>
+
+                <div>
+                    <span class="topbar-eyebrow">GREEN SKY SOLAR</span>
+                    <h1>Administration</h1>
+                </div>
+            </div>
+
+            <div class="topbar-profile">
+                <div class="profile-avatar">A</div>
+                <div class="profile-details">
+                    <strong>Administrator</strong>
+                    <small>Admin account</small>
+                </div>
+            </div>
+        </header>
+
+        <main class="admin-content">
+            <router-outlet />
+        </main>
+
+        <footer class="admin-footer">
+            <span>© {{ currentYear }} GreenSky Solar</span>
+            <span>Clean energy. Smarter management.</span>
+        </footer>
+
+    </div>
+</div>

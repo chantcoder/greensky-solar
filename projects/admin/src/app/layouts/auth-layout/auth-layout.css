@@ -1,8 +1,14 @@
+
 :host {
   display: block;
   min-height: 100vh;
 }
 
-.auth-layout {
-  min-height: 100vh;
+.auth-page {
+  background: #f7f8f4;
+  color: #172b27;
+}
+
+.auth-main {
+  min-width: 0;
 }

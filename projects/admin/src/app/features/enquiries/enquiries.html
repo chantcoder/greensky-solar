@@ -1,0 +1,156 @@
+
+<div class="enquiries-page">
+  <div class="page-heading">
+    <div>
+      <span class="page-eyebrow">CUSTOMER MANAGEMENT</span>
+      <h2>Enquiries</h2>
+      <p>Manage customer requests and track your sales follow-ups.</p>
+    </div>
+
+    <div class="total-badge">
+      <strong>{{ enquiries.length }}</strong>
+      <span>Total enquiries</span>
+    </div>
+  </div>
+
+  <div class="summary-grid">
+    <article class="summary-card">
+      <span class="summary-label">Total enquiries</span>
+      <strong>{{ enquiries.length }}</strong>
+      <span class="summary-note">All received requests</span>
+    </article>
+
+    <article class="summary-card">
+      <span class="summary-label">New</span>
+      <strong>{{ newCount }}</strong>
+      <span class="summary-note">Awaiting first contact</span>
+    </article>
+
+    <article class="summary-card">
+      <span class="summary-label">Contacted</span>
+      <strong>{{ contactedCount }}</strong>
+      <span class="summary-note">Follow-up in progress</span>
+    </article>
+
+    <article class="summary-card">
+      <span class="summary-label">Qualified</span>
+      <strong>{{ qualifiedCount }}</strong>
+      <span class="summary-note">Potential opportunities</span>
+    </article>
+  </div>
+
+  <section class="table-card">
+    <div class="table-heading">
+      <div>
+        <h3>All enquiries</h3>
+        <p>Search customers and update enquiry status.</p>
+      </div>
+
+      <span class="result-count">
+        {{ filteredEnquiries.length }} results
+      </span>
+    </div>
+
+    <div class="filters">
+      <div class="search-box">
+        <span aria-hidden="true">⌕</span>
+        <input
+          type="search"
+          placeholder="Search name, phone, email or ID..."
+          aria-label="Search enquiries"
+          [(ngModel)]="searchTerm"
+        />
+      </div>
+
+      <select
+        aria-label="Filter by status"
+        [(ngModel)]="selectedStatus"
+      >
+        <option value="All">All statuses</option>
+        @for (status of statuses; track status) {
+          <option [value]="status">{{ status }}</option>
+        }
+      </select>
+
+      <select
+        aria-label="Filter by service"
+        [(ngModel)]="selectedService"
+      >
+        <option value="All">All services</option>
+        <option value="Residential">Residential</option>
+        <option value="Commercial">Commercial</option>
+        <option value="Industrial">Industrial</option>
+      </select>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Customer</th>
+            <th>Service</th>
+            <th>Location</th>
+            <th>Date received</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (enquiry of filteredEnquiries; track enquiry.id) {
+            <tr>
+              <td>
+                <div class="customer-cell">
+                  <span class="customer-avatar">
+                    {{ enquiry.name.charAt(0) }}
+                  </span>
+                  <div class="customer-info">
+                    <strong>{{ enquiry.name }}</strong>
+                    <span>#{{ enquiry.id }} · {{ enquiry.phone }}</span>
+                    <span>{{ enquiry.email }}</span>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <span class="service-label">{{ enquiry.service }}</span>
+              </td>
+
+              <td>{{ enquiry.city }}</td>
+
+              <td>{{ enquiry.date | date: 'dd MMM yyyy' }}</td>
+
+              <td>
+                <select
+                  class="status-select"
+                  [class.status-new]="enquiry.status === 'New'"
+                  [class.status-contacted]="enquiry.status === 'Contacted'"
+                  [class.status-qualified]="enquiry.status === 'Qualified'"
+                  [class.status-closed]="enquiry.status === 'Closed'"
+                  [ngModel]="enquiry.status"
+                  (ngModelChange)="updateStatus(enquiry.id, $event)"
+                  [attr.aria-label]="'Status for ' + enquiry.name"
+                >
+                  @for (status of statuses; track status) {
+                    <option [value]="status">{{ status }}</option>
+                  }
+                </select>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="5" class="empty-cell">
+                <span class="empty-icon">⌕</span>
+                <strong>No enquiries found</strong>
+                <span>Try changing your search or filters.</span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-footer">
+      Showing {{ filteredEnquiries.length }} of {{ enquiries.length }} enquiries
+    </div>
+  </section>
+</div>

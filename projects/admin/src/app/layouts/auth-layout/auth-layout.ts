@@ -8,4 +8,7 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './auth-layout.css',
   templateUrl: './auth-layout.html',
 })
-export class AuthLayout {}
+export class AuthLayout {
+  readonly currentYear = new Date().getFullYear();
+  
+}

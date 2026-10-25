@@ -1,1 +1,163 @@
-<p>register works!</p>
+
+
+
+<div class="login-page">
+    <section class="brand-panel">
+        <div class="brand-content">
+            <a class="brand" routerLink="/auth/login" aria-label="GreenSky Solar home">
+                <span class="brand-icon" aria-hidden="true">
+                    <svg viewBox="0 0 40 40" fill="none">
+                        <circle cx="20" cy="20" r="7" stroke="currentColor" stroke-width="2.5" />
+                        <path d="M20 3v5m0 24v5M3 20h5m24 0h5M8 8l4 4m16 16 4 4m0-24-4 4M12 28l-4 4"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+                        <path d="m14 21 4 4 9-11" stroke="#fff" stroke-width="2.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </span>
+                <span class="brand-name">
+                    GreenSky Solar
+                    <small>ENERGY FOR TOMORROW</small>
+                </span>
+            </a>
+
+            <div class="brand-message">
+                <span class="eyebrow">ADMINISTRATION PORTAL</span>
+                <h1>Powering a brighter future, <em>together.</em></h1>
+                <p>
+                    Manage your solar business website, update content and keep
+                    your digital presence running smoothly.
+                </p>
+
+                <div class="feature-list">
+                    <div class="feature">
+                        <span class="check">✓</span>
+                        <span>Manage website content in one place</span>
+                    </div>
+                    <div class="feature">
+                        <span class="check">✓</span>
+                        <span>Keep business information up to date</span>
+                    </div>
+                    <div class="feature">
+                        <span class="check">✓</span>
+                        <span>Maintain a consistent brand experience</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="brand-footer">
+                <span class="sun-symbol">☀</span>
+                Clean energy. Smarter management.
+            </div>
+        </div>
+    </section>
+
+    <main class="form-panel">
+        <div class="mobile-brand">
+            <span class="brand-icon" aria-hidden="true">☀</span>
+            <span class="brand-name">
+                GreenSky Solar
+                <small>ADMIN PORTAL</small>
+            </span>
+        </div>
+
+        <div class="login-card">
+            <div class="welcome-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" stroke-width="1.7" />
+                    <path d="M4 21v-2a8 8 0 0 1 16 0v2" stroke="currentColor" stroke-width="1.7"
+                        stroke-linecap="round" />
+                </svg>
+            </div>
+
+            <span class="eyebrow">WELCOME</span>
+            <h2>Register your account</h2>
+            <!-- <p class="subtitle">
+                Enter your administrator credentials to continue.
+            </p> -->
+
+            <form (ngSubmit)="onSubmit()" #registerForm="ngForm" novalidate>
+                <div class="mb-3">
+                    <label for="fullName" class="form-label small fw-semibold">Full name</label>
+                    <input id="fullName" name="fullName" class="form-control" type="text" [(ngModel)]="fullName"
+                        #nameField="ngModel" autocomplete="name" placeholder="Enter your full name" required />
+                    @if (nameField.invalid && (nameField.touched || submitted)) {
+                    <div class="text-danger small mt-1">Please enter your full name.</div>
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label small fw-semibold">Work email</label>
+                    <input id="email" name="email" class="form-control" type="email" [(ngModel)]="email"
+                        #emailField="ngModel" autocomplete="email" placeholder="you@company.com" required email />
+                    @if (emailField.invalid && (emailField.touched || submitted)) {
+                    <div class="text-danger small mt-1">Enter a valid email address.</div>
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label for="mobile" class="form-label small fw-semibold">Mobile number</label>
+                    <input id="mobile" name="mobile" class="form-control" type="tel" [(ngModel)]="mobile"
+                        #mobileField="ngModel" autocomplete="tel-national" inputmode="numeric" maxlength="10"
+                        pattern="[6-9][0-9]{9}" placeholder="10-digit mobile number" required />
+                    @if (mobileField.invalid && (mobileField.touched || submitted)) {
+                    <div class="text-danger small mt-1">
+                        Enter a valid 10-digit Indian mobile number.
+                    </div>
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label small fw-semibold">Password</label>
+                    <div class="input-group">
+                        <input id="password" name="password" class="form-control"
+                            [type]="showPassword ? 'text' : 'password'" [(ngModel)]="password" #passwordField="ngModel"
+                            autocomplete="new-password" placeholder="At least 8 characters" minlength="8" required />
+                        <button class="btn btn-outline-secondary" type="button" (click)="showPassword = !showPassword"
+                            [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
+                            {{ showPassword ? 'Hide' : 'Show' }}
+                        </button>
+                    </div>
+                    @if (passwordField.invalid && (passwordField.touched || submitted)) {
+                    <div class="text-danger small mt-1">
+                        Password must contain at least 8 characters.
+                    </div>
+                    }
+                </div>
+
+                <div class="mb-4">
+                    <label for="confirmPassword" class="form-label small fw-semibold">
+                        Confirm password
+                    </label>
+                    <div class="input-group">
+                        <input id="confirmPassword" name="confirmPassword" class="form-control"
+                            [type]="showConfirmPassword ? 'text' : 'password'" [(ngModel)]="confirmPassword"
+                            #confirmField="ngModel" autocomplete="new-password" placeholder="Re-enter your password"
+                            required />
+                        <button class="btn btn-outline-secondary" type="button"
+                            (click)="showConfirmPassword = !showConfirmPassword"
+                            [attr.aria-label]="showConfirmPassword ? 'Hide password' : 'Show password'">
+                            {{ showConfirmPassword ? 'Hide' : 'Show' }}
+                        </button>
+                    </div>
+                    @if ((confirmField.touched || submitted) && confirmPassword !== password) {
+                    <div class="text-danger small mt-1">Passwords do not match.</div>
+                    }
+                </div>
+
+                <button class="submit-button" type="submit">
+                    Request registration <span aria-hidden="true">→</span>
+                </button>
+
+                <p class="text-secondary text-center small mt-3 mb-0">
+                    Registration is subject to administrator approval.
+                </p>
+            </form>
+
+
+        </div>
+
+        <!-- <footer class="page-footer">
+            © {{ currentYear }} GreenSky Solar. All rights reserved.
+        </footer> -->
+    </main>
+</div>
